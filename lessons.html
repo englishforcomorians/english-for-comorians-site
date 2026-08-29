@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lessons — English for Comorians</title>
+<link rel="icon" type="image/png" href="assets/logo-mark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,wght@0,500;0,600;1,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --paper: #F2ECDE;
+    --paper-light: #FAF6EC;
+    --vermilion: #E4461C;
+    --vermilion-dark: #C93912;
+    --indigo: #182849;
+    --indigo-light: #24365E;
+    --charcoal: #211D1A;
+    --gold: #D6A24C;
+    --line: rgba(33,29,26,0.14);
+    --max: 1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--charcoal);
+    font-family:'Space Mono', monospace;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Archivo Black', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    line-height:1.05;
+    margin:0;
+  }
+
+  .serif{ font-family:'Fraunces', serif; text-transform:none; letter-spacing:0; }
+  a{ color:inherit; }
+
+  .tag{
+    font-family:'Space Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:0.5em;
+  }
+
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 32px; }
+
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--max); margin:0 auto; padding:18px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand-badge{ width:40px; height:40px; flex:none; object-fit:contain; }
+  .brand-name{
+    font-family:'Archivo Black', sans-serif;
+    font-size:0.95rem;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+    line-height:1.15;
+  }
+  .brand-name span{ display:block; font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.16em; color:var(--vermilion-dark); font-weight:700; margin-top:2px;}
+  .nav-links{ display:flex; gap:34px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    text-decoration:none; font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding-bottom:4px; border-bottom:2px solid transparent;
+  }
+  .nav-links a:hover{ border-bottom-color:var(--vermilion); }
+  @media (max-width: 820px){ .nav-links{ display:none; } }
+
+  /* ---------- LESSON HEADER ---------- */
+  .lhead{
+    padding:60px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .back-link{
+    font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase;
+    text-decoration:none; color:var(--vermilion-dark); font-weight:700;
+    display:inline-flex; align-items:center; gap:8px; margin-bottom:22px;
+  }
+  .lhead .tag{ color:var(--vermilion-dark); font-weight:700; margin-bottom:14px; }
+  .lhead h1{ font-size:clamp(1.8rem, 3.6vw, 2.6rem); }
+
+  /* ---------- LESSON LIST ---------- */
+  .lessons{ padding:60px 0 100px; }
+  .status{
+    font-family:'Fraunces', serif; font-size:1.05rem; opacity:0.75; padding:40px 0;
+  }
+  .status.is-error{ color:var(--vermilion-dark); }
+
+  .lesson-card{
+    background:var(--paper-light);
+    border:1px solid var(--line);
+    margin-bottom:24px;
+    overflow:hidden;
+  }
+  .lesson-head{
+    display:flex; align-items:center; gap:18px;
+    padding:22px 26px;
+  }
+  .lesson-num{
+    font-family:'Archivo Black', sans-serif;
+    font-size:1.1rem;
+    color:var(--vermilion-dark);
+    flex:none;
+    width:38px;
+  }
+  .lesson-head h2{ font-size:1.15rem; letter-spacing:0.01em; }
+
+  .resource-list{ border-top:1px solid var(--line); }
+  .resource-row{
+    display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+    padding:18px 26px;
+    border-bottom:1px solid var(--line);
+  }
+  .resource-row:last-child{ border-bottom:none; }
+  .resource-order{
+    font-family:'Space Mono', monospace; font-size:0.7rem; color:var(--charcoal); opacity:0.45;
+    width:24px; flex:none;
+  }
+  .resource-label{
+    font-family:'Fraunces', serif; font-style:italic; font-size:0.95rem; opacity:0.75;
+    width:120px; flex:none;
+  }
+  .resource-items{ display:flex; flex-wrap:wrap; gap:12px; flex:1; align-items:center; }
+
+  .chip{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Space Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase;
+    padding:10px 16px; border-radius:100px; text-decoration:none;
+    border:1px solid var(--charcoal); color:var(--charcoal); background:transparent;
+  }
+  .chip:hover{ background:var(--charcoal); color:var(--paper-light); }
+  .chip.primary{ background:var(--vermilion); border-color:var(--vermilion); color:var(--paper-light); }
+  .chip.primary:hover{ background:var(--vermilion-dark); border-color:var(--vermilion-dark); }
+
+  .video-embed{
+    width:100%; max-width:420px; aspect-ratio:16/9; background:var(--charcoal);
+    border:none; display:block;
+  }
+
+  /* ---------- CUSTOM AUDIO PLAYER ---------- */
+  .audio-player{
+    display:flex; align-items:center; gap:14px;
+    background:var(--indigo);
+    border-radius:100px;
+    padding:6px 18px 6px 6px;
+    flex:1; min-width:230px; max-width:360px;
+  }
+  .audio-player .play-btn{
+    flex:none; width:38px; height:38px; border-radius:50%;
+    background:var(--vermilion); border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.15s ease, transform 0.1s ease;
+  }
+  .audio-player .play-btn:hover{ background:var(--vermilion-dark); }
+  .audio-player .play-btn:active{ transform:scale(0.94); }
+  .audio-player .play-btn svg{ width:13px; height:13px; fill:var(--paper-light); }
+  .audio-player .waveform{
+    flex:1; display:flex; align-items:center; gap:2px;
+    height:26px; cursor:pointer; padding:0 2px;
+  }
+  .audio-player .bar{
+    flex:1; min-width:2px; background:rgba(250,246,236,0.28);
+    border-radius:2px; transition:background 0.15s ease;
+  }
+  .audio-player .bar.is-played{ background:var(--gold); }
+  .audio-player .time{
+    font-family:'Space Mono', monospace; font-size:0.62rem; letter-spacing:0.03em;
+    color:var(--paper-light); opacity:0.8; flex:none; min-width:34px; text-align:right;
+  }
+
+  @media (max-width: 640px){
+    .resource-row{ flex-direction:column; align-items:flex-start; }
+    .resource-order{ width:auto; }
+    .resource-label{ width:auto; }
+    .audio-player{ max-width:none; width:100%; }
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--charcoal); color:var(--paper-light); padding:50px 0 30px; margin-top:0; }
+  .footer-bottom{ text-align:center; font-size:0.7rem; opacity:0.55; }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-mark.png" alt="English for Comorians emblem" class="brand-badge">
+      <span class="brand-name">English for<br>Comorians<span>KM · MORONI</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#tracks">Levels</a></li>
+      <li><a href="index.html#games">Games &amp; Challenges</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ================= LESSON HEADER ================= -->
+<header class="lhead">
+  <div class="wrap">
+    <a href="index.html#tracks" class="back-link">&larr; Back to levels</a>
+    <span class="tag" id="level-tag">Level</span>
+    <h1 id="level-title">Loading&hellip;</h1>
+  </div>
+</header>
+
+<!-- ================= LESSONS ================= -->
+<section class="lessons">
+  <div class="wrap" id="lessons-wrap">
+    <div class="status" id="status">Loading lessons&hellip;</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-bottom">
+    <span>&copy; 2026 English for Comorians &middot; Moroni, Union of the Comoros</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+  // Published Google Sheet (CSV export)
+  var SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTE63Wl8hm1lgkk4AjNlQu6gxyuonOpmKHGkW5KL9tQOzwCZEXkQfOCbX8Sua3nQKpcvaUjsPxR6v5r/pub?output=csv";
+
+  var LEVELS = {
+    beginner: {
+      label: "Beginner",
+      code: "Pre&#8211;A1 &#8211; A2",
+      match: ["prea1", "a1", "a2"]
+    },
+    intermediate: {
+      label: "Intermediate",
+      code: "B1 &#8211; B2",
+      match: ["b1", "b2"]
+    },
+    advanced: {
+      label: "Advanced",
+      code: "C1 &#8211; C2",
+      match: ["c1", "c2"]
+    }
+  };
+
+  function getParam(name){
+    var params = new URLSearchParams(window.location.search);
+    return params.get(name);
+  }
+
+  function normalizeLevel(raw){
+    return String(raw || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  }
+
+  // Minimal RFC4180-ish CSV parser (handles quoted fields, commas & newlines inside quotes)
+  function parseCSV(text){
+    var rows = [];
+    var row = [];
+    var field = "";
+    var inQuotes = false;
+
+    for (var i = 0; i < text.length; i++){
+      var c = text[i];
+
+      if (inQuotes){
+        if (c === '"'){
+          if (text[i+1] === '"'){ field += '"'; i++; }
+          else { inQuotes = false; }
+        } else {
+          field += c;
+        }
+      } else {
+        if (c === '"'){
+          inQuotes = true;
+        } else if (c === ','){
+          row.push(field); field = "";
+        } else if (c === '\n'){
+          row.push(field); field = "";
+          rows.push(row); row = [];
+        } else if (c === '\r'){
+          // skip, \n handles the row break
+        } else {
+          field += c;
+        }
+      }
+    }
+    if (field.length || row.length){ row.push(field); rows.push(row); }
+    return rows.filter(function(r){ return r.some(function(cell){ return cell.trim() !== ""; }); });
+  }
+
+  function rowsToObjects(rows){
+    var header = rows[0].map(function(h){ return h.trim(); });
+    return rows.slice(1).map(function(r){
+      var obj = {};
+      header.forEach(function(h, idx){ obj[h] = (r[idx] || "").trim(); });
+      return obj;
+    });
+  }
+
+  function youtubeId(url){
+    if (!url) return null;
+    var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{6,})/);
+    return m ? m[1] : null;
+  }
+
+  var PLAY_ICON = '<svg viewBox="0 0 16 16"><path d="M3 1.5v13l11-6.5-11-6.5Z"/></svg>';
+  var PAUSE_ICON = '<svg viewBox="0 0 16 16"><path d="M3 1.5h4v13H3v-13Zm6 0h4v13H9v-13Z"/></svg>';
+  var BAR_COUNT = 28;
+
+  function formatTime(sec){
+    if (!isFinite(sec) || sec < 0) sec = 0;
+    var m = Math.floor(sec / 60);
+    var s = Math.floor(sec % 60);
+    return m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  function buildAudioPlayer(src){
+    var wrap = document.createElement("div");
+    wrap.className = "audio-player";
+
+    var audio = document.createElement("audio");
+    audio.preload = "none";
+    audio.src = src;
+
+    var playBtn = document.createElement("button");
+    playBtn.type = "button";
+    playBtn.className = "play-btn";
+    playBtn.setAttribute("aria-label", "Play");
+    playBtn.innerHTML = PLAY_ICON;
+
+    var waveform = document.createElement("div");
+    waveform.className = "waveform";
+    var bars = [];
+    for (var i = 0; i < BAR_COUNT; i++){
+      var bar = document.createElement("div");
+      bar.className = "bar";
+      // gentle randomized heights so it reads as a waveform, not a plain bar
+      var h = 6 + Math.round(Math.abs(Math.sin(i * 1.7)) * 14) + Math.round(Math.random() * 4);
+      bar.style.height = h + "px";
+      waveform.appendChild(bar);
+      bars.push(bar);
+    }
+
+    var timeEl = document.createElement("span");
+    timeEl.className = "time";
+    timeEl.textContent = "0:00";
+
+    function setProgress(ratio){
+      var filled = Math.round(ratio * BAR_COUNT);
+      bars.forEach(function(bar, idx){
+        bar.classList.toggle("is-played", idx < filled);
+      });
+    }
+
+    playBtn.addEventListener("click", function(){
+      if (audio.paused){ audio.play(); } else { audio.pause(); }
+    });
+
+    audio.addEventListener("play", function(){
+      playBtn.innerHTML = PAUSE_ICON;
+      playBtn.setAttribute("aria-label", "Pause");
+    });
+    audio.addEventListener("pause", function(){
+      playBtn.innerHTML = PLAY_ICON;
+      playBtn.setAttribute("aria-label", "Play");
+    });
+    audio.addEventListener("timeupdate", function(){
+      if (audio.duration){ setProgress(audio.currentTime / audio.duration); }
+      timeEl.textContent = formatTime(audio.duration && !audio.ended ? audio.duration - audio.currentTime : audio.duration || 0);
+    });
+    audio.addEventListener("loadedmetadata", function(){
+      timeEl.textContent = formatTime(audio.duration);
+    });
+    audio.addEventListener("ended", function(){
+      setProgress(0);
+      timeEl.textContent = formatTime(audio.duration);
+    });
+
+    waveform.addEventListener("click", function(e){
+      var rect = waveform.getBoundingClientRect();
+      var ratio = (e.clientX - rect.left) / rect.width;
+      ratio = Math.min(Math.max(ratio, 0), 1);
+      if (audio.duration){ audio.currentTime = ratio * audio.duration; }
+      setProgress(ratio);
+    });
+
+    wrap.appendChild(playBtn);
+    wrap.appendChild(waveform);
+    wrap.appendChild(timeEl);
+    wrap.appendChild(audio);
+    return wrap;
+  }
+
+  function buildResourceRow(item){
+    var row = document.createElement("div");
+    row.className = "resource-row";
+
+    var orderEl = document.createElement("span");
+    orderEl.className = "resource-order";
+    orderEl.textContent = item.Order ? "#" + item.Order : "";
+    row.appendChild(orderEl);
+
+    var fileTitle = item["File Title"];
+    if (fileTitle){
+      var labelEl = document.createElement("span");
+      labelEl.className = "resource-label";
+      labelEl.textContent = fileTitle;
+      row.appendChild(labelEl);
+    }
+
+    var items = document.createElement("div");
+    items.className = "resource-items";
+    var hasAny = false;
+
+    if (item["Watch On Web Video"] || item["Watch On Web"]){
+      var webVideoUrl = item["Watch On Web Video"] || item["Watch On Web"];
+      var video = document.createElement("video");
+      video.className = "video-embed";
+      video.controls = true;
+      video.src = webVideoUrl;
+      items.appendChild(video);
+      hasAny = true;
+    }
+
+    if (item["YouTube Video"]){
+      var yid = youtubeId(item["YouTube Video"]);
+      if (yid){
+        var iframe = document.createElement("iframe");
+        iframe.className = "video-embed";
+        iframe.src = "https://www.youtube.com/embed/" + yid;
+        iframe.title = "YouTube video";
+        iframe.allowFullscreen = true;
+        items.appendChild(iframe);
+      } else {
+        var yLink = document.createElement("a");
+        yLink.className = "chip primary";
+        yLink.href = item["YouTube Video"];
+        yLink.target = "_blank";
+        yLink.rel = "noopener";
+        yLink.textContent = "Watch on YouTube";
+        items.appendChild(yLink);
+      }
+      hasAny = true;
+    }
+
+    if (item.Audio){
+      items.appendChild(buildAudioPlayer(item.Audio));
+      hasAny = true;
+    }
+
+    if (item.PDF){
+      var pdfLink = document.createElement("a");
+      pdfLink.className = "chip";
+      pdfLink.href = item.PDF;
+      pdfLink.target = "_blank";
+      pdfLink.rel = "noopener";
+      pdfLink.textContent = "View PDF";
+      items.appendChild(pdfLink);
+      hasAny = true;
+    }
+
+    if (item.Game){
+      var gameLink = document.createElement("a");
+      gameLink.className = "chip";
+      gameLink.href = item.Game;
+      gameLink.target = "_blank";
+      gameLink.rel = "noopener";
+      gameLink.textContent = "Play game";
+      items.appendChild(gameLink);
+      hasAny = true;
+    }
+
+    if (!hasAny) return null;
+
+    row.appendChild(items);
+    return row;
+  }
+
+  function render(levelKey, rows){
+    var level = LEVELS[levelKey];
+    var wrap = document.getElementById("lessons-wrap");
+    var statusEl = document.getElementById("status");
+
+    var filtered = rows.filter(function(r){
+      var norm = normalizeLevel(r.Level);
+      return level.match.some(function(m){ return norm.indexOf(m) === 0; });
+    });
+
+    if (!filtered.length){
+      statusEl.textContent = "No lessons published for this level yet — check back soon.";
+      return;
+    }
+
+    // Group rows by Title, preserving the lowest Order seen per group
+    var groups = [];
+    var byTitle = {};
+    filtered.forEach(function(r){
+      var key = r.Title || "Untitled lesson";
+      if (!byTitle[key]){
+        byTitle[key] = { title: key, items: [], minOrder: Infinity };
+        groups.push(byTitle[key]);
+      }
+      byTitle[key].items.push(r);
+      var ord = parseFloat(r.Order);
+      if (!isNaN(ord) && ord < byTitle[key].minOrder) byTitle[key].minOrder = ord;
+    });
+
+    groups.forEach(function(g){
+      g.items.sort(function(a, b){
+        var oa = parseFloat(a.Order), ob = parseFloat(b.Order);
+        if (isNaN(oa)) oa = Infinity;
+        if (isNaN(ob)) ob = Infinity;
+        return oa - ob;
+      });
+    });
+    groups.sort(function(a, b){ return a.minOrder - b.minOrder; });
+
+    wrap.innerHTML = "";
+    groups.forEach(function(g, idx){
+      var card = document.createElement("div");
+      card.className = "lesson-card";
+
+      var head = document.createElement("div");
+      head.className = "lesson-head";
+      var num = document.createElement("span");
+      num.className = "lesson-num";
+      num.textContent = String(idx + 1).padStart(2, "0");
+      var h2 = document.createElement("h2");
+      h2.textContent = g.title;
+      head.appendChild(num);
+      head.appendChild(h2);
+      card.appendChild(head);
+
+      var list = document.createElement("div");
+      list.className = "resource-list";
+      var any = false;
+      g.items.forEach(function(item){
+        var rowEl = buildResourceRow(item);
+        if (rowEl){ list.appendChild(rowEl); any = true; }
+      });
+      if (any) card.appendChild(list);
+
+      wrap.appendChild(card);
+    });
+  }
+
+  function init(){
+    var levelKey = getParam("level");
+    var level = LEVELS[levelKey];
+
+    if (!level){
+      document.getElementById("level-title").textContent = "Level not found";
+      document.getElementById("status").textContent = "Choose a level from the homepage to see its lessons.";
+      return;
+    }
+
+    document.getElementById("level-tag").innerHTML = level.code;
+    document.getElementById("level-title").textContent = level.label + " Lessons";
+
+    fetch(SHEET_CSV_URL)
+      .then(function(res){
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.text();
+      })
+      .then(function(text){
+        var rows = rowsToObjects(parseCSV(text));
+        render(levelKey, rows);
+      })
+      .catch(function(err){
+        var statusEl = document.getElementById("status");
+        statusEl.className = "status is-error";
+        statusEl.textContent = "Couldn't load lessons right now. Please try again in a moment.";
+        console.error(err);
+      });
+  }
+
+  init();
+})();
+</script>
+
+</body>
+</html>
