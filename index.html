@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>English For Comorians</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ocean:#0B3D5C;
+    --ocean-deep:#082C43;
+    --sand:#FBF3E3;
+    --sand-card:#FFFFFF;
+    --gold:#E8A33D;
+    --coral:#D9603B;
+    --text:#1C2B33;
+    --text-soft:#5B6B72;
+    --line:#EAE0CB;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--sand);
+    font-family:'Nunito Sans', sans-serif;
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:90px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Baloo 2', sans-serif;
+  }
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit;cursor:pointer;}
+
+  /* ---------- TOP BAR (Facebook-style) ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--ocean);
+    color:#fff;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 16px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+  }
+  .brand{
+    display:flex;align-items:center;gap:10px;
+  }
+  .brand .moon{
+    width:34px;height:34px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--gold);
+    border-radius:50%;
+    font-size:18px;
+  }
+  .brand span{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:18px;
+    letter-spacing:0.2px;
+  }
+  .brand small{display:block;font-family:'Nunito Sans';font-weight:600;font-size:10.5px;color:#CFE3EE;letter-spacing:0.4px;}
+  .topbar-icons{display:flex;gap:14px;align-items:center;}
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    background:rgba(255,255,255,0.12);
+    border:none;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;
+  }
+
+  /* ---------- LEVEL STORIES BAR ---------- */
+  .levels-wrap{
+    background:var(--sand-card);
+    border-bottom:1px solid var(--line);
+    padding:14px 0 10px;
+  }
+  .levels{
+    display:flex;gap:13px;
+    overflow-x:auto;
+    padding:0 16px;
+    scrollbar-width:none;
+  }
+  .levels::-webkit-scrollbar{display:none;}
+  .level-item{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    flex:0 0 auto;
+    background:none;border:none;
+    color:var(--text-soft);
+  }
+  .level-ring{
+    width:52px;height:52px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:19px;
+    background:var(--sand);
+    border:3px solid var(--line);
+    transition:all .15s ease;
+  }
+  .level-item.active .level-ring{
+    border-color:var(--coral);
+    background:linear-gradient(135deg,#FDEFE6,#FFFFFF);
+  }
+  .level-item.active{color:var(--ocean);font-weight:800;}
+  .level-item span.label{font-size:12.5px;font-weight:700;}
+
+  /* ---------- HERO / WELCOME POST ---------- */
+  .container{max-width:640px;margin:0 auto;padding:14px 12px;}
+  .welcome-card{
+    background:linear-gradient(135deg, var(--ocean) 0%, var(--ocean-deep) 100%);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:22px 20px;
+    margin-bottom:16px;
+    position:relative;
+    overflow:hidden;
+  }
+  .welcome-card::after{
+    content:"🌙";
+    position:absolute;right:-10px;top:-18px;
+    font-size:110px;opacity:0.12;
+  }
+  .welcome-card h1{
+    margin:0 0 6px;font-size:22px;font-weight:700;line-height:1.3;
+  }
+  .welcome-card p{
+    margin:0 0 16px;color:#D9E7EE;font-size:14.5px;line-height:1.5;max-width:90%;
+  }
+  .cta-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:11px 18px;border-radius:30px;
+    font-weight:800;font-size:14px;border:none;
+  }
+  .btn-gold{background:var(--gold);color:var(--ocean-deep);}
+  .btn-ghost{background:rgba(255,255,255,0.14);color:#fff;border:1px solid rgba(255,255,255,0.35);}
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{
+    display:flex;align-items:center;gap:8px;
+    margin:22px 4px 10px;
+    color:var(--text-soft);font-weight:800;font-size:13px;
+    text-transform:uppercase;letter-spacing:0.6px;
+  }
+  .section-label .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);}
+
+  /* ---------- LESSON POST CARD ---------- */
+  .post{
+    background:var(--sand-card);
+    border-radius:var(--radius);
+    margin-bottom:14px;
+    box-shadow:0 1px 3px rgba(11,61,92,0.08);
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .post-head{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 16px 6px;
+  }
+  .post-avatar{
+    width:40px;height:40px;border-radius:50%;
+    background:var(--ocean);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;flex:0 0 auto;
+  }
+  .post-head .who{font-weight:800;font-size:14.5px;color:var(--ocean-deep);}
+  .post-head .meta{font-size:12px;color:var(--text-soft);}
+  .post-body{padding:6px 16px 4px;}
+  .post-title{font-family:'Baloo 2';font-weight:700;font-size:17px;margin:4px 0 4px;color:var(--text);}
+  .post-desc{font-size:14px;color:var(--text-soft);line-height:1.5;margin:0 0 10px;}
+
+  .media-video{
+    position:relative;width:100%;aspect-ratio:16/9;
+    background:#0B3D5C url('') center/cover;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .media-video img{width:100%;height:100%;object-fit:cover;display:block;}
+  .play-btn{
+    position:absolute;width:56px;height:56px;border-radius:50%;
+    background:rgba(255,255,255,0.92);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;color:var(--coral);
+    box-shadow:0 4px 14px rgba(0,0,0,0.25);
+  }
+
+  /* ---------- AUDIO — COMPACT (just play + label) ---------- */
+  .audio-compact{
+    margin:0 16px 10px;
+    display:flex;align-items:center;gap:10px;
+    background:var(--sand);border:1px solid var(--line);
+    border-radius:30px;padding:6px 14px 6px 6px;
+  }
+  .ac-play{
+    width:34px;height:34px;border-radius:50%;flex:0 0 auto;
+    background:var(--ocean);color:#fff;border:none;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;cursor:pointer;
+  }
+  .ac-play.playing{background:var(--coral);}
+  .ac-label{font-size:13px;font-weight:700;color:var(--text);}
+
+  /* ---------- AUDIO — RICH (fancier player with progress) ---------- */
+  .audio-rich{
+    margin:0 16px 14px;padding:14px 16px;
+    background:linear-gradient(135deg,#FDEFE6,var(--sand));
+    border:1px solid var(--line);border-radius:16px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .ar-play{
+    width:46px;height:46px;border-radius:50%;flex:0 0 auto;
+    background:var(--coral);color:#fff;border:none;
+    display:flex;align-items:center;justify-content:center;
+    font-size:17px;cursor:pointer;
+    box-shadow:0 4px 10px rgba(217,96,59,0.35);
+  }
+  .ar-body{flex:1;min-width:0;}
+  .ar-label{font-weight:800;font-size:13.5px;color:var(--ocean-deep);margin-bottom:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .ar-progress{
+    position:relative;height:6px;border-radius:6px;
+    background:rgba(11,61,92,0.12);cursor:pointer;
+    margin-bottom:6px;
+  }
+  .ar-progress-fill{
+    position:absolute;left:0;top:0;bottom:0;width:0%;
+    border-radius:6px;background:var(--coral);
+    transition:width .1s linear;
+  }
+  .ar-time{font-size:11px;color:var(--text-soft);font-weight:600;}
+
+  .listen-btn{
+    margin:0 16px 14px;
+    display:flex;align-items:center;gap:8px;
+    background:var(--ocean);color:#fff;border:none;
+    border-radius:30px;padding:12px 18px;
+    font-weight:800;font-size:14px;
+  }
+  .listen-count{
+    background:rgba(255,255,255,0.22);
+    border-radius:20px;padding:2px 9px;font-size:12px;
+  }
+
+  .listen-sheet-title{
+    font-family:'Baloo 2';font-size:18px;margin:0 0 4px;
+  }
+  .listen-sheet-sub{
+    font-size:12.5px;color:var(--text-soft);margin:0 0 16px;
+  }
+  .listen-list{
+    max-height:56vh;overflow-y:auto;
+    display:flex;flex-direction:column;gap:8px;
+    margin-bottom:6px;
+  }
+  .listen-list .audio-compact{margin:0;}
+
+  .attach-pdf{
+    margin:0 16px 14px;
+    display:flex;align-items:center;gap:12px;
+    background:var(--sand);border:1px solid var(--line);
+    border-radius:12px;padding:12px 14px;
+  }
+  .attach-pdf .file-icon{
+    width:38px;height:38px;border-radius:8px;
+    background:var(--coral);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;
+    flex:0 0 auto;
+  }
+  .attach-pdf .file-name{font-weight:700;font-size:13.5px;}
+  .attach-pdf .file-sub{font-size:11.5px;color:var(--text-soft);}
+
+  .post-actions{
+    display:flex;border-top:1px solid var(--line);
+    padding:6px 8px;
+  }
+  .post-actions a, .post-actions button{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:7px;
+    padding:10px 6px;border-radius:10px;
+    background:none;border:none;
+    font-weight:700;font-size:13px;color:var(--text-soft);
+  }
+  .post-actions a:active, .post-actions button:active{background:var(--sand);}
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .fab{
+    position:fixed;right:16px;bottom:18px;z-index:60;
+    width:58px;height:58px;border-radius:50%;
+    background:#25D366;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.28);
+  }
+
+  /* ---------- HELP STRIP ---------- */
+  .help-strip{
+    background:var(--ocean-deep);color:#fff;
+    border-radius:var(--radius);
+    padding:18px;margin:26px 4px 8px;
+    text-align:center;
+  }
+  .help-strip h3{margin:0 0 6px;font-size:16px;}
+  .help-strip p{margin:0 0 14px;font-size:13.5px;color:#C9DCE6;}
+  .help-icons{display:flex;justify-content:center;gap:14px;}
+  .help-icons a{
+    width:46px;height:46px;border-radius:50%;
+    background:rgba(255,255,255,0.12);
+    display:flex;align-items:center;justify-content:center;font-size:20px;
+  }
+
+  footer{
+    text-align:center;padding:20px;color:var(--text-soft);font-size:12px;
+  }
+
+  /* Simple modal */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(8,20,28,0.55);
+    display:none;align-items:flex-end;justify-content:center;z-index:100;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-sheet{
+    background:#fff;width:100%;max-width:640px;
+    border-radius:20px 20px 0 0;
+    padding:22px 20px 26px;
+  }
+  .modal-sheet h3{margin:0 0 14px;font-family:'Baloo 2';}
+  .modal-sheet .close{
+    display:block;margin:16px auto 0;background:var(--sand);
+    padding:10px 22px;border-radius:24px;font-weight:800;border:none;
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="moon">🌙</div>
+    <div>
+      <span>English For Comorians</span>
+    </div>
+  </div>
+  <div class="topbar-icons">
+    <button class="icon-btn" onclick="openModal()">☰</button>
+  </div>
+</div>
+
+<!-- LEVEL STORIES BAR -->
+<div class="levels-wrap">
+  <div class="levels" id="levelsBar">
+    <button class="level-item active" data-level="all">
+      <div class="level-ring">📚</div>
+      <span class="label">All</span>
+    </button>
+    <button class="level-item" data-level="prea1">
+      <div class="level-ring">🐣</div>
+      <span class="label">Pre-A1</span>
+    </button>
+    <button class="level-item" data-level="a1">
+      <div class="level-ring">🌱</div>
+      <span class="label">A1</span>
+    </button>
+    <button class="level-item" data-level="a2">
+      <div class="level-ring">🚲</div>
+      <span class="label">A2</span>
+    </button>
+    <button class="level-item" data-level="b1">
+      <div class="level-ring">🌊</div>
+      <span class="label">B1</span>
+    </button>
+    <button class="level-item" data-level="b2">
+      <div class="level-ring">🏆</div>
+      <span class="label">B2</span>
+    </button>
+    <button class="level-item" data-level="c1">
+      <div class="level-ring">🎓</div>
+      <span class="label">C1</span>
+    </button>
+    <button class="level-item" data-level="c2">
+      <div class="level-ring">⭐</div>
+      <span class="label">C2</span>
+    </button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- WELCOME POST -->
+  <div class="welcome-card">
+    <h1>Karibu! Welcome 👋</h1>
+    <div class="cta-row">
+      <a class="btn btn-gold" href="#lessons">Start learning</a>
+      <a class="btn btn-ghost" href="https://wa.me/000000000000" target="_blank">Message us</a>
+    </div>
+  </div>
+
+  <div class="section-label" id="lessons"><span class="dot"></span>Lessons</div>
+
+  <div id="feed"></div>
+
+  <div class="help-strip">
+    <h3>Need help?</h3>
+    <p>Tap an icon below and we'll answer you directly.</p>
+    <div class="help-icons">
+      <a href="https://wa.me/000000000000" target="_blank" title="WhatsApp">💬</a>
+      <a href="https://www.facebook.com/" target="_blank" title="Facebook Page">📘</a>
+      <a href="https://m.me/englishforcomorians" target="_blank" title="Messenger">✉️</a>
+    </div>
+  </div>
+
+  <footer>English For Comorians · Made with ❤️ for our students</footer>
+</div>
+
+<a class="fab" href="https://wa.me/000000000000" target="_blank" title="WhatsApp us">💬</a>
+
+<!-- Simple info modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-sheet">
+    <h3>About this site</h3>
+    <p style="color:var(--text-soft);font-size:14px;line-height:1.6;">
+      English For Comorians gives you free lessons across seven levels, from Pre-A1 to C2.
+      Each lesson has a short video, an audio you can listen to, and a PDF you can download and keep — even without internet later.
+    </p>
+    <button class="close" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- Listen popup: shows all compact Audio clips for one lesson -->
+<div class="modal-overlay" id="listenModal">
+  <div class="modal-sheet">
+    <h3 class="listen-sheet-title" id="listenTitle">Listen</h3>
+    <p class="listen-sheet-sub" id="listenSub"></p>
+    <div class="listen-list" id="listenList"></div>
+    <button class="close" onclick="closeListenModal()">Close</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   LESSON DATA
+   Edit this list to add your real lessons.
+   level: "beginner" | "intermediate" | "advanced"
+   type of media per lesson is optional: video, audioUrl, pdfUrl
+   video.thumbnail: image URL (e.g. from your GitHub repo)
+   video.url: link to the video (YouTube link or hosted file)
+   ============================================================ */
+/* ============================================================
+   DATA SOURCES
+   Sheet 1: Level, Title, Description, ..., Hide  -> one row per lesson
+   Sheet 2: LessonTitle, Type, Label, URL, Order   -> one row per attachment
+   ============================================================ */
+const LEVELS_CSV_URL   = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS2l5IJfk2Z-_iK2TUomijCZs3am5KnPMLfQgdKev13CGeMDgjPE_AH2Fv8dybhTx01RdpOAloNucb-/pub?output=csv";
+const CONTENT_CSV_URL  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRFVVUPUlF3PHAKraRIYFE3e73xtbcKTGpxOlU1wFaFZmYQDc64acpl00CtMg8yAVjW8KMATs_LWIJt/pub?output=csv";
+
+const levelLabel = { prea1:"Pre-A1", a1:"A1", a2:"A2", b1:"B1", b2:"B2", c1:"C1", c2:"C2" };
+const levelEmoji = { prea1:"🐣", a1:"🌱", a2:"🚲", b1:"🌊", b2:"🏆", c1:"🎓", c2:"⭐" };
+
+function normLevel(raw){
+  return (raw || "").toLowerCase().replace(/[\s\-_]/g, "");
+}
+
+/* Minimal CSV parser that handles quoted fields, commas inside quotes, and "" escapes */
+function parseCSV(text){
+  const rows = [];
+  let row = [], field = "", inQuotes = false;
+  for(let i = 0; i < text.length; i++){
+    const c = text[i], next = text[i+1];
+    if(inQuotes){
+      if(c === '"' && next === '"'){ field += '"'; i++; }
+      else if(c === '"'){ inQuotes = false; }
+      else { field += c; }
+    } else {
+      if(c === '"'){ inQuotes = true; }
+      else if(c === ','){ row.push(field); field = ""; }
+      else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ""; }
+      else if(c === '\r'){ /* skip */ }
+      else { field += c; }
+    }
+  }
+  if(field.length || row.length){ row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(cell => cell.trim() !== ""));
+}
+
+function rowsToObjects(rows){
+  const headers = rows[0].map(h => h.trim());
+  return rows.slice(1).map(r => {
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (r[i] || "").trim());
+    return obj;
+  });
+}
+
+let LESSONS = [];       // [{ level, title, desc, hide }]
+let CONTENT_BY_TITLE = {}; // { title: [{type,label,url,order}] }
+let LESSON_AUDIO = {};     // { lessonTitle: [{label,url}] } — for the "Listen" popup
+
+async function loadData(){
+  const feed = document.getElementById('feed');
+  feed.innerHTML = `<div class="post" style="padding:30px;text-align:center;color:var(--text-soft);">Loading lessons… 🌙</div>`;
+
+  try{
+    const [levelsRes, contentRes] = await Promise.all([
+      fetch(LEVELS_CSV_URL), fetch(CONTENT_CSV_URL)
+    ]);
+    const [levelsText, contentText] = await Promise.all([levelsRes.text(), contentRes.text()]);
+
+    const levelRows = rowsToObjects(parseCSV(levelsText));
+    LESSONS = levelRows
+      .filter(r => r.Title)
+      .map(r => ({
+        level: normLevel(r.Level),
+        title: r.Title.trim(),
+        desc: (r.Description || "").trim(),
+        hide: /^(true|yes|1)$/i.test((r.Hide || "").trim())
+      }))
+      .filter(l => !l.hide);
+
+    const contentRows = rowsToObjects(parseCSV(contentText));
+    CONTENT_BY_TITLE = {};
+    contentRows.forEach(r => {
+      const title = (r.LessonTitle || "").trim();
+      if(!title || !r.Type) return;
+      if(!CONTENT_BY_TITLE[title]) CONTENT_BY_TITLE[title] = [];
+      CONTENT_BY_TITLE[title].push({
+        type: (r.Type || "").trim().toLowerCase(),
+        label: (r.Label || "").trim(),
+        url: (r.URL || "").trim(),
+        order: parseInt(r.Order, 10) || 999
+      });
+    });
+    Object.values(CONTENT_BY_TITLE).forEach(list => list.sort((a,b) => a.order - b.order));
+
+    renderFeed('all');
+  } catch(err){
+    feed.innerHTML = `<div class="post" style="padding:30px;text-align:center;color:var(--text-soft);">Couldn't load lessons right now. Please refresh. 🌙</div>`;
+    console.error(err);
+  }
+}
+
+function renderFeed(filter){
+  const feed = document.getElementById('feed');
+  feed.innerHTML = "";
+  const items = LESSONS.filter(l => filter === "all" || l.level === filter);
+
+  if(items.length === 0){
+    feed.innerHTML = `<div class="post" style="padding:30px;text-align:center;color:var(--text-soft);">No lessons here yet — check back soon 🌙</div>`;
+    return;
+  }
+
+  items.forEach(lesson => {
+    const card = document.createElement('div');
+    card.className = 'post';
+
+    const attachments = CONTENT_BY_TITLE[lesson.title] || [];
+    let mediaHtml = "";
+
+    attachments.filter(a => a.type === "video").forEach(a => {
+      mediaHtml += `
+        <a class="media-video" href="${a.url || '#'}" target="_blank">
+          <div class="play-btn">▶</div>
+        </a>`;
+    });
+
+    const audioCompact = attachments.filter(a => a.type === "audio");
+    const audioRich = attachments.filter(a => a.type === "audio1");
+
+    if(audioCompact.length){
+      LESSON_AUDIO[lesson.title] = audioCompact;
+      mediaHtml += `
+        <button class="listen-btn" type="button" data-title="${lesson.title.replace(/"/g, '&quot;')}">
+          🎧 Listen <span class="listen-count">${audioCompact.length}</span>
+        </button>`;
+    }
+
+    audioRich.forEach(a => {
+      mediaHtml += `
+        <div class="audio-rich" data-src="${a.url}" data-mode="rich">
+          <button class="ar-play" type="button">▶</button>
+          <div class="ar-body">
+            <div class="ar-label">${a.label || "Audio"}</div>
+            <div class="ar-progress"><div class="ar-progress-fill"></div></div>
+            <div class="ar-time">0:00 / 0:00</div>
+          </div>
+        </div>`;
+    });
+
+    attachments.filter(a => a.type === "pdf").forEach(a => {
+      mediaHtml += `
+        <a class="attach-pdf" href="${a.url}" target="_blank">
+          <div class="file-icon">PDF</div>
+          <div>
+            <div class="file-name">${a.label || 'Download PDF'}</div>
+            <div class="file-sub">Tap to open or save</div>
+          </div>
+        </a>`;
+    });
+
+    card.innerHTML = `
+      <div class="post-head">
+        <div class="post-avatar">${levelEmoji[lesson.level] || "📘"}</div>
+        <div>
+          <div class="who">${levelLabel[lesson.level] || lesson.level}</div>
+          <div class="meta">English For Comorians</div>
+        </div>
+      </div>
+      <div class="post-body">
+        <div class="post-title">${lesson.title}</div>
+        ${lesson.desc ? `<p class="post-desc">${lesson.desc}</p>` : ""}
+      </div>
+      ${mediaHtml}
+      <div class="post-actions">
+        <a href="https://wa.me/000000000000" target="_blank">💬 Ask a question</a>
+      </div>
+    `;
+    feed.appendChild(card);
+  });
+
+  attachAudioPlayers(feed);
+}
+
+/* ============================================================
+   AUDIO PLAYER MANAGER
+   - Only one track plays at a time, site-wide.
+   - "compact" (Audio) players: interrupting them RESETS to 0 —
+     pressing play again starts from the beginning.
+   - "rich" (Audio1) players: interrupting them just PAUSES —
+     pressing play again resumes where it left off.
+   ============================================================ */
+let ACTIVE_PLAYER = null;
+
+function formatTime(sec){
+  if(!isFinite(sec) || sec < 0) sec = 0;
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60).toString().padStart(2, "0");
+  return `${m}:${s}`;
+}
+
+function stopPlayer(player){
+  player.audio.pause();
+  if(player.mode === "compact"){
+    player.audio.currentTime = 0; // closes fully — restarts from 0 next time
+  }
+  setPlayingUI(player, false);
+}
+
+function setPlayingUI(player, isPlaying){
+  player.btn.textContent = isPlaying ? "⏸" : "▶";
+  player.btn.classList.toggle("playing", isPlaying);
+}
+
+function togglePlayer(player){
+  if(ACTIVE_PLAYER === player && !player.audio.paused){
+    player.audio.pause();
+    setPlayingUI(player, false);
+    ACTIVE_PLAYER = null;
+    return;
+  }
+  if(ACTIVE_PLAYER && ACTIVE_PLAYER !== player){
+    stopPlayer(ACTIVE_PLAYER);
+  }
+  player.audio.play();
+  setPlayingUI(player, true);
+  ACTIVE_PLAYER = player;
+}
+
+function attachAudioPlayers(container){
+  container.querySelectorAll('.audio-compact').forEach(el => {
+    const audio = new Audio(el.dataset.src);
+    audio.preload = "none";
+    const btn = el.querySelector('.ac-play');
+    const player = { mode: "compact", audio, btn };
+    btn.addEventListener('click', () => togglePlayer(player));
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      setPlayingUI(player, false);
+      if(ACTIVE_PLAYER === player) ACTIVE_PLAYER = null;
+    });
+  });
+
+  container.querySelectorAll('.audio-rich').forEach(el => {
+    const audio = new Audio(el.dataset.src);
+    audio.preload = "metadata";
+    const btn = el.querySelector('.ar-play');
+    const fill = el.querySelector('.ar-progress-fill');
+    const time = el.querySelector('.ar-time');
+    const bar = el.querySelector('.ar-progress');
+    const player = { mode: "rich", audio, btn, fill, time };
+
+    btn.addEventListener('click', () => togglePlayer(player));
+
+    audio.addEventListener('loadedmetadata', () => {
+      time.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+    });
+    audio.addEventListener('timeupdate', () => {
+      const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      fill.style.width = pct + "%";
+      time.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+    });
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      fill.style.width = "0%";
+      setPlayingUI(player, false);
+      if(ACTIVE_PLAYER === player) ACTIVE_PLAYER = null;
+    });
+    bar.addEventListener('click', (e) => {
+      if(!audio.duration) return;
+      const rect = bar.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = ratio * audio.duration;
+    });
+  });
+}
+
+document.getElementById('levelsBar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.level-item');
+  if(!btn) return;
+  document.querySelectorAll('.level-item').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFeed(btn.dataset.level);
+});
+
+document.getElementById('feed').addEventListener('click', (e) => {
+  const btn = e.target.closest('.listen-btn');
+  if(!btn) return;
+  openListenModal(btn.dataset.title);
+});
+
+function openListenModal(title){
+  const items = LESSON_AUDIO[title] || [];
+  document.getElementById('listenTitle').textContent = `🎧 ${title}`;
+  document.getElementById('listenSub').textContent = `${items.length} audio clip${items.length === 1 ? "" : "s"}`;
+
+  const list = document.getElementById('listenList');
+  list.innerHTML = items.map(a => `
+    <div class="audio-compact" data-src="${a.url}" data-mode="compact">
+      <button class="ac-play" type="button">▶</button>
+      <span class="ac-label">${a.label || "Audio"}</span>
+    </div>`).join("");
+
+  attachAudioPlayers(list);
+  document.getElementById('listenModal').classList.add('open');
+}
+
+function closeListenModal(){
+  document.getElementById('listenModal').classList.remove('open');
+}
+document.getElementById('listenModal').addEventListener('click', (e) => {
+  if(e.target.id === 'listenModal') closeListenModal();
+});
+
+function openModal(){ document.getElementById('modal').classList.add('open'); }
+function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+document.getElementById('modal').addEventListener('click', (e)=>{
+  if(e.target.id === 'modal') closeModal();
+});
+
+loadData();
+</script>
+
+</body>
+</html>
